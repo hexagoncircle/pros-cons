@@ -1,0 +1,341 @@
+// Variables
+$base-context: 16;
+$base-margin: 12;
+$base-text-color: black;
+$base-highlight-color: mediumslateblue;
+$bp-small: 600px;
+$section-margin: 60;
+
+$button-bg-color: lavenderblush;
+
+$contenteditable-focus-empty-text-color: lightgray;
+$contenteditable-focus-bg-color: lighten($contenteditable-focus-empty-text-color, 10%);
+$contenteditable-focus-text-color: $base-text-color;
+
+$input-padding: 8px 12px;
+$input-text-color: black;
+$input-border-color: lightgray;
+$input-focus-highlight-color: $base-highlight-color;
+$input-focus-highlight-bs-inset: white 0 0 0 1px inset;
+$input-focus-highlight-bs: rgba($base-highlight-color, 0.5) 0 0 4px 1px;
+$input-focus-border-color: $base-highlight-color;
+
+$list-item-border-color: lightgray;
+$list-item-count-text-color: white;
+$list-item-count-bg-color: crimson;
+
+$switch-bg-color: white;
+$switch-text-color: black;
+$switch-focus-bg-color: $base-highlight-color;
+$switch-focus-text-color: white;
+
+// Functions
+@function em($pixels, $context: $base-context) {
+  @return #{$pixels/$context}em;
+}
+
+// Mixins
+@mixin sharpGradient($color, $lighten: 5%) {
+  background-color: $color;
+  background: linear-gradient(to bottom,
+    lighten($color, $lighten),
+    lighten($color, $lighten) 50%,
+    $color 50%,
+    $color);
+}
+
+@mixin baseFontStyles {
+  font-size: em(18);
+  line-height: 1.2;
+  font-family: Helvetica, Arial, sans-serif;
+  
+  @media(min-width: $bp-small) {
+    font-size: em(16);
+  }
+}
+
+// Global
+* {
+  box-sizing: border-box;
+}
+
+body {
+  @include baseFontStyles;
+  margin: em(36) auto;
+  width: 100vw;
+  height: 100vh;
+}
+
+// Layout containers
+section {
+  padding: 12px 24px;
+  max-width: em(800);
+  margin: 0 auto;
+}
+
+.add-item__container {
+  display: flex;
+  flex-wrap: wrap;
+  @media(min-width: $bp-small) {
+   flex-wrap: nowrap; 
+  }
+  
+  > * {
+    margin-right: em($base-margin);
+    margin-bottom: em($base-margin);
+  }
+  
+  > *:first-child {
+    flex-basis: 100%;
+    margin-right: 0;
+    @media(min-width: $bp-small) {
+      margin-right: em($base-margin);
+    }
+  }
+
+  > *:last-child {
+    margin-right: 0;
+  }
+}
+
+.list__container {
+  @media(min-width: $bp-small) {
+    display: flex;
+
+    > div {
+      flex: 1;
+
+      &:first-child {
+        margin-right: em(24);
+      }
+    }
+  }
+}
+
+// Intro title
+.intro__title {
+  font-size: em(28);
+  font-weight: bold;
+  
+  @media (min-width: $bp-small) {
+    font-size: em(36);
+  }
+  
+  &:hover, &:focus {
+    color: mediumslateblue;
+  }
+}
+
+// Editable text elements
+[contenteditable] {
+  position: relative;
+  transition: background-color 0.1s ease-out;
+  
+  &:empty:before {
+    content: attr(data-empty-text);
+    color: $contenteditable-focus-empty-text-color;
+  }
+  
+  &:hover {
+    cursor: pointer;
+    color: $contenteditable-focus-text-color;
+  }
+  
+  &:focus {
+    outline: none;
+    cursor: text;
+    color: $contenteditable-focus-text-color;
+    background-color: $contenteditable-focus-bg-color;
+
+    &:empty:before {
+      color: transparent;
+    }
+ 
+    &:after {
+      width: 100%;
+    }
+  }
+}
+
+// Form elements
+input,
+button,
+.switch {
+  @include baseFontStyles;
+  margin: 0;
+  padding: $input-padding;
+  background-color: white;
+  border: 1px solid $input-border-color;
+  border-radius: em(2);
+  transition: box-shadow 0.1s ease-out;
+  
+  &:focus,
+  &:focus + label {
+    outline: none;
+    border: 1px solid $input-focus-border-color;
+    box-shadow: $input-focus-highlight-bs;
+  }
+}
+
+// Input
+input {
+  width: 100%;
+  -webkit-appearance: none;
+}
+
+// Input notes (for describedby attributes)  
+.input-note {
+  display: none;
+}
+
+// Switch (checkbox)
+.switch {
+  display: flex;
+  padding: 0;
+  background-color: $switch-bg-color;
+  cursor: pointer;
+  
+  label {
+    position: relative;
+    padding: $input-padding;
+    cursor: pointer;
+    color: $switch-text-color;
+    border: none;
+    transition: box-shadow 0.1s ease-out;
+  }
+  
+  input:focus + label {
+    box-shadow: $input-focus-highlight-bs;
+    z-index: 1;
+  }
+  
+  input:checked + label {
+    @include sharpGradient($switch-focus-bg-color);
+    border: none;
+    color: $switch-focus-text-color;
+  }
+  
+  input:checked {
+    + label:before,
+    + label:after {
+      transition-delay: 0s;
+    }
+    
+    + label:before {
+      color: $switch-focus-text-color;
+    }
+    
+    + label:after {
+      color: $switch-text-color;
+    }
+    
+    ~ .switch__slider {
+      transform: translateX(0);
+    }
+  }
+}
+
+// Buttons
+button {
+  @include sharpGradient($button-bg-color, 2%);
+  cursor: pointer;
+  
+  &:disabled {
+    color: lighten($input-text-color, 70%);
+    background-color: lighten($input-border-color, 10%);
+  }
+}
+
+// Delete button
+.button--delete {
+  position: relative;
+  margin: em(0) em(0) em(0) em(12);
+  padding: em(12);
+  background: transparent;
+  border-color: transparent;
+  
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:before {
+    content: "×";
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+// List
+.list {
+  margin-bottom: em($section-margin);
+}
+
+// List headings
+.list__heading {
+  position: relative;
+  display: inline-block;
+  font-size: em(24);
+  font-weight: bold;
+  margin-bottom: em($base-margin);
+  
+    
+  @media (min-width: $bp-small) {
+    font-size: em(30);
+  }
+}
+
+// List item
+.list-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid $list-item-border-color;
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: 
+    opacity 0.2s ease-out,
+    transform 0.2s ease-out;
+}
+
+// List item title
+.list-item__title {
+  flex: 1 1 100%;
+  margin: 0;
+}
+
+// List item count
+.list-item--count {
+  @include sharpGradient($list-item-count-bg-color);
+  position: absolute;
+  bottom: em(16); left: 100%;
+  margin-top: em(-4);
+  margin-left: em(4);
+  padding: em(2) em(8);
+  font-size: em(8);
+  font-weight: normal;
+  color: $list-item-count-text-color;
+  border-radius: em(2);
+  user-select: none;
+  cursor: default;
+}
+
+// Utility classes
+.visually-hidden { 
+  position: absolute; 
+  overflow: hidden; 
+  clip: rect(0 0 0 0); 
+  height: 1px; width: 1px; 
+  margin: -1px; padding: 0; border: 0; 
+}
+
+.hidden {
+  display: none !important;
+}
+
+// UI transition classes
+.js--show {
+  opacity: 1;
+  transform: translateY(0);
+}

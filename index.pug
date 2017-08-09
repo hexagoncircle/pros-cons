@@ -1,0 +1,25 @@
+section.intro__container
+  h1.intro__title(contenteditable="true" data-empty-text="Click to add a title" title="Edit this title")
+
+section.add-item__container
+  .input-group
+    input.add-item__description(type="text" id="item-description" placeholder="Add a description")
+  .input-group
+    .switch(role="radiogroup")
+      input(id="switch-pro" class="add-item__type" name="item-type-switch" type="radio" class="visually-hidden" aria-describedby="add-item__type--note" checked)
+      label(for="switch-pro") Pro
+      input(id="switch-con" class="add-item__type" name="item-type-switch" type="radio" class="visually-hidden" aria-describedby="add-item__type--note")
+      label(for="switch-con") Con
+      p.input-note(id="add-item__type--note") Set this item as a pro or a con
+  button.add-item__btn(aria-label="Add this item" type="submit") Add
+  
+section.list__container
+  div.pros
+    h2.list__heading Pros
+      span.list-item--count(title="Amount of Pros") 0
+    ul.list
+    
+  div.cons
+    h2.list__heading Cons
+      span.list-item--count(title="Amount of Cons") 0
+    ul.list

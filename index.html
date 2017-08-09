@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Pros & Cons</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+  
+<section class="intro__container">
+  <h1 class="intro__title" contenteditable="true" data-empty-text="Click to add a title" title="Edit this title"></h1>
+</section>
+<section class="add-item__container">
+  <div class="input-group">
+    <input class="add-item__description" type="text" id="item-description" placeholder="Add a description"/>
+  </div>
+  <div class="input-group">
+    <div class="switch" role="radiogroup">
+      <input class="add-item__type visually-hidden" id="switch-pro" name="item-type-switch" type="radio" aria-describedby="add-item__type--note" checked="checked"/>
+      <label for="switch-pro">Pro</label>
+      <input class="add-item__type visually-hidden" id="switch-con" name="item-type-switch" type="radio" aria-describedby="add-item__type--note"/>
+      <label for="switch-con">Con</label>
+      <p class="input-note" id="add-item__type--note">Set this item as a pro or a con</p>
+    </div>
+  </div>
+  <button class="add-item__btn" aria-label="Add this item" type="submit">Add</button>
+</section>
+<section class="list__container">
+  <div class="pros">
+    <h2 class="list__heading">Pros<span class="list-item--count" title="Amount of Pros">0</span></h2>
+    <ul class="list"></ul>
+  </div>
+  <div class="cons">
+    <h2 class="list__heading">Cons<span class="list-item--count" title="Amount of Cons">0</span></h2>
+    <ul class="list"></ul>
+  </div>
+</section>
+  
+    <script src="js/index.js"></script>
+
+</body>
+</html>
