@@ -2,7 +2,7 @@
 
 A web app for creating lists of pros and cons. Compare and decide your fate. This was just a personal test in creating something with vanilla javascript.
 
-[Try a demo on CodePen](http://codepen.io/hexagoncircle/pen/ybqBxJ.)
+[Try a demo on CodePen](http://codepen.io/hexagoncircle/pen/ybqBxJ)
 
 ### Todo
 
